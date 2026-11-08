@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Personaje</title>
+    <base href="/">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Editar <%= personaje.name %></h1>
+    <form action="/starwars/<%= personaje.name.split(" ")[0] %>?_method=PATCH" method="POST">
+        <label>
+            Altura
+            <input type="text" name="height" value="<%= personaje.height %>" required maxlength="10" autofocus>
+        </label>
+        <label>
+            Peso
+            <input type="text" name="mass" value="<%= personaje.mass %>" required maxlength="10">
+        </label>
+        <button type="submit">Editar personaje</button>
+        <a href="/starwars/<%= personaje.name.split(" ")[0] %>"><button type="button">Cancelar</button></a>
+    </form>
+</body>
+</html>

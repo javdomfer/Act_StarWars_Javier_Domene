@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personajes de Star Wars</title>
+    <base href="/">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Personajes de Star Wars</h1>
+    <div>
+        <% personajes.forEach( p => { %>
+            <a href="/starwars/<%= p.name.split(" ")[0] %>">
+                <img src="<%= p.photo %>" alt="<%= p.name %>" width="150">
+            </a>
+        <% }) %>
+    </div>
+
+    <a href="/starwars/new">Nuevo personaje</a>
+    <a href="/">Volver al buscador</a>
+</body>
+</html>

@@ -1,0 +1,305 @@
+/* ==========================================================
+   Star Wars – hoja de estilos
+   Colócala en: public/styles.css
+   Funciona con las plantillas actuales sin añadir clases.
+   ========================================================== */
+
+/* ---------- Variables de color y medidas ---------- */
+:root {
+  --fondo: #14171f;       /* fondo de la página */
+  --superficie: #1d212b;  /* tarjetas y campos */
+  --borde: #2f3542;       /* líneas finas */
+  --texto: #e8e6e1;       /* texto principal */
+  --apagado: #9aa0ad;     /* texto secundario */
+  --acento: #f2c94c;      /* color principal (botones, enlaces) */
+  --peligro: #e5645a;     /* acción de borrar */
+  --radio: 8px;
+}
+
+/* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* ---------- Enlaces ---------- */
+a {
+  color: var(--acento);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Enlaces de navegación al final de cada página */
+body > a {
+  display: inline-block;
+  margin: 1.5rem 1.25rem 0 0;
+}
+
+/* Foco visible para quien navega con teclado */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+
+/* ---------- Buscador (search.html) ---------- */
+body > form:not(:has(label)) {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+body > form:not(:has(label)) input[type="text"] {
+  flex: 1;
+}
+
+/* ---------- Formularios (new.ejs y edit.ejs) ---------- */
+form label {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--apagado);
+  font-size: 0.9rem;
+}
+
+form label input {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+input {
+  padding: 0.6rem 0.75rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  color: var(--texto);
+  font: inherit;
+}
+
+input::placeholder {
+  color: var(--apagado);
+}
+
+input:focus {
+  border-color: var(--acento);
+}
+
+/* Formulario de crear/editar: tarjeta centrada, igual que la de detalle */
+body > form:has(label) {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+/* Los campos van sobre el fondo de la tarjeta, así que se oscurecen un poco */
+body > form:has(label) input {
+  background: var(--fondo);
+}
+
+/* Etiquetas más legibles dentro del formulario */
+body > form:has(label) label {
+  color: var(--texto);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Botones de la tarjeta: Guardar y Cancelar en la misma fila */
+body > form:has(label) > button,
+body > form:has(label) > a {
+  display: inline-block;
+  margin: 0.5rem 0.5rem 0 0;
+  vertical-align: top;
+}
+
+/* El título de estas páginas va centrado, como en el detalle */
+body:has(> form > label) > h1 {
+  text-align: center;
+}
+
+/* ---------- Botones ---------- */
+button {
+  padding: 0.55rem 1.1rem;
+  background: var(--acento);
+  border: 1px solid var(--acento);
+  border-radius: var(--radio);
+  color: var(--fondo);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+/* Botones secundarios (Editar, Cancelar): solo borde */
+button[type="button"] {
+  background: transparent;
+  border-color: var(--borde);
+  color: var(--texto);
+}
+
+button[type="button"]:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+  filter: none;
+}
+
+/* Botón de eliminar: color de peligro */
+form[action*="_method=DELETE"] button {
+  background: transparent;
+  border-color: var(--peligro);
+  color: var(--peligro);
+}
+
+form[action*="_method=DELETE"] button:hover {
+  background: var(--peligro);
+  color: var(--fondo);
+  filter: none;
+}
+
+/* Cancelar dentro de un formulario: al lado del botón principal */
+form a:hover {
+  text-decoration: none;
+}
+
+/* ---------- Listado de personajes (index.ejs) ---------- */
+/* Cuadrícula: el div que contiene enlaces con imagen */
+div:has(> a > img) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+div > a > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  transition: border-color 0.15s;
+}
+
+div > a:hover > img {
+  border-color: var(--acento);
+}
+
+/* ---------- Detalle del personaje (show.ejs) ---------- */
+/* Tarjeta: el div principal que NO es la cuadrícula del listado */
+body > div:not(:has(> a > img)) {
+  padding: 1.5rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+body > div:not(:has(> a > img)) h1 {
+  margin-bottom: 1rem;
+}
+
+body > div:not(:has(> a > img)) > img {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radio);
+}
+
+/* Cada dato en su propia línea */
+div > span {
+  display: block;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+div > span b {
+  display: inline-block;
+  min-width: 90px;
+  color: var(--apagado);
+  font-weight: 500;
+}
+
+/* Botones de la tarjeta: Editar y Eliminar en fila */
+body > div > a,
+body > div > form {
+  display: inline-block;
+  margin: 1.5rem 0.5rem 0 0;
+  vertical-align: top;
+}
+
+/* ---------- Detalle centrado (show.ejs) ---------- */
+/* Solo afecta a la página que tiene la tarjeta de detalle */
+/* (la tarjeta de detalle es el único div del body que contiene un h1) */
+body:has(> div > h1) {
+  text-align: center; /* título, datos, botones y enlaces centrados */
+}
+
+/* Tarjeta más estrecha y centrada en la página */
+body > div:has(> h1) {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Imagen centrada */
+body > div:has(> h1) > img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Datos centrados: etiqueta y valor juntos en la misma línea */
+body > div:has(> h1) span b {
+  min-width: 0;
+  margin-right: 0.4rem;
+}
+
+/* ---------- Página de error (error.ejs) ---------- */
+h1 + h2 {
+  margin-top: -0.75rem;
+  color: var(--apagado);
+  font-weight: 400;
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 480px) {
+  body {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  div:has(> a > img) {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
